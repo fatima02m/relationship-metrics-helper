@@ -20,11 +20,38 @@ const QuizProgress: React.FC<QuizProgressProps> = ({
   const section = sections.find(s => s.id === currentSection);
   const sectionTitle = section ? section.title : "";
 
+  // Get section subtitle based on section ID
+  const getSectionSubtitle = () => {
+    switch (currentSection) {
+      case 1:
+        return "Where You Are";
+      case 2:
+        return "Your Concerns";
+      case 3:
+        return "Detailed Assessment";
+      case 4:
+        return "Emotional Scenarios";
+      case 5:
+        return "Growth Potential";
+      case 6:
+        return "Future Planning";
+      case 7:
+        return "Support & Resources";
+      default:
+        return "";
+    }
+  };
+
   return (
     <div className="mb-8">
       <div className="flex justify-between items-center mb-2">
         <div className="text-sm font-medium">
           <span className="text-primary">{sectionTitle}</span>
+          {getSectionSubtitle() && (
+            <span className="text-muted-foreground ml-2">
+              • {getSectionSubtitle()}
+            </span>
+          )}
         </div>
         <div className="text-sm text-muted-foreground">
           Question {currentQuestion} of {totalQuestions}
