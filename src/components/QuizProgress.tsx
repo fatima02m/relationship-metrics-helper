@@ -31,9 +31,9 @@ const QuizProgress: React.FC<QuizProgressProps> = ({
         </div>
       </div>
       
-      <div className="progress-indicator">
+      <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
         <motion.div
-          className="progress-bar"
+          className="h-full bg-primary rounded-full"
           initial={{ width: `${((currentQuestion - 1) / totalQuestions) * 100}%` }}
           animate={{ width: `${progress}%` }}
           transition={{ duration: 0.7, ease: "easeInOut" }}
