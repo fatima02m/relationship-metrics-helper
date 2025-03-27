@@ -2,7 +2,8 @@
 import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { profileTypes, ProfileType, Option } from "@/data/quizData";
+import { profileTypes } from "@/data/profileTypes";
+import { ProfileType, Option } from "@/data/types/quizTypes";
 
 interface QuizResultsProps {
   primaryType: string;
@@ -139,20 +140,37 @@ const QuizResults: React.FC<QuizResultsProps> = ({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="bg-card text-card-foreground p-8 rounded-xl shadow-sm"
+      className="bg-card text-card-foreground p-8 rounded-md shadow-sm border"
     >
-      <div className="mb-8">
+      <div className="mb-8 text-center">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3, duration: 0.8 }}
+          className="flex justify-center mb-5"
+        >
+          <div className="w-20 h-20 flex items-center justify-center">
+            <svg viewBox="0 0 100 100" className="w-full h-full">
+              <circle cx="50" cy="50" r="48" fill="#BFD34A" fillOpacity="0.2" />
+              <circle cx="50" cy="50" r="38" fill="#FFFFFF" />
+              <g transform="translate(32, 30)">
+                <path d="M18,0 L36,40 L0,40 Z" fill="#442D1F" />
+                <circle cx="18" cy="15" r="5" fill="#E26C65" />
+              </g>
+            </svg>
+          </div>
+        </motion.div>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.8 }}
         >
-          <div className="inline-block px-3 py-1 mb-3 text-xs font-medium bg-primary/10 text-primary rounded-full">
+          <div className="inline-block px-3 py-1 mb-3 text-xs font-medium bg-clean-green/10 text-clean-green rounded-full">
             Assessment Complete
           </div>
         </motion.div>
         <motion.h1 
-          className="text-3xl font-medium tracking-tight"
+          className="text-3xl font-medium tracking-tight font-georgia"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4, duration: 0.8 }}
@@ -160,7 +178,7 @@ const QuizResults: React.FC<QuizResultsProps> = ({
           Your Divorce Journey Assessment
         </motion.h1>
         <motion.p 
-          className="mt-2 text-muted-foreground"
+          className="mt-2 text-muted-foreground max-w-xl mx-auto"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.8 }}
@@ -169,7 +187,7 @@ const QuizResults: React.FC<QuizResultsProps> = ({
         </motion.p>
       </div>
 
-      <div className="space-y-8">
+      <div className="space-y-8 max-w-2xl mx-auto">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -177,18 +195,16 @@ const QuizResults: React.FC<QuizResultsProps> = ({
         >
           {/* Journey Stage Section */}
           <div className="mb-8">
-            <h2 className="text-xl font-medium mb-4">Your Journey Stage</h2>
-            <div className="p-6 rounded-lg border border-primary/20 bg-primary/5">
-              <h3 className="text-lg font-medium mb-2" style={{ color: profileType?.color }}>
-                {profileType?.title}
+            <h2 className="text-xl font-medium mb-4 font-georgia">Your Journey Stage</h2>
+            <div className="p-6 rounded-md border border-clean-green/20 bg-clean-green/5">
+              <h3 className="text-lg font-medium mb-2 font-georgia" style={{ color: "#442D1F" }}>
+                {profileType?.title || "Your Divorce Journey"}
               </h3>
-              <p className="text-muted-foreground mb-4">{profileType?.description}</p>
+              <p className="text-muted-foreground mb-4">{profileType?.description || "Based on your answers, we've identified your current stage."}</p>
               
               <div className="flex items-center">
-                <div className="w-3 h-3 rounded-full mr-2" style={{ 
-                  backgroundColor: profileType?.color 
-                }}></div>
-                <div className="text-sm font-medium">
+                <div className="w-3 h-3 rounded-full mr-2 bg-clean-green"></div>
+                <div className="text-sm font-medium font-georgia">
                   {getJourneyStage()}
                 </div>
               </div>
@@ -198,16 +214,16 @@ const QuizResults: React.FC<QuizResultsProps> = ({
           {/* Primary Concern Section */}
           {getPrimaryConcern() && (
             <div className="mb-8">
-              <h2 className="text-xl font-medium mb-4">Your Primary Concern</h2>
-              <div className="p-6 rounded-lg border border-border">
-                <p className="font-medium">{getPrimaryConcern()}</p>
+              <h2 className="text-xl font-medium mb-4 font-georgia">Your Primary Concern</h2>
+              <div className="p-6 rounded-md border border-border">
+                <p className="font-medium font-georgia">{getPrimaryConcern()}</p>
               </div>
             </div>
           )}
 
           {/* Insights Section */}
           <div className="mb-8">
-            <h2 className="text-xl font-medium mb-4">Insights For You</h2>
+            <h2 className="text-xl font-medium mb-4 font-georgia">Insights For You</h2>
             <div className="space-y-4">
               {getJourneyInsights().map((insight, i) => (
                 <motion.div 
@@ -215,9 +231,9 @@ const QuizResults: React.FC<QuizResultsProps> = ({
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: 0.8 + (i * 0.1) }}
-                  className="p-4 rounded-lg bg-muted/50"
+                  className="p-4 rounded-md bg-muted/50"
                 >
-                  <p>{insight}</p>
+                  <p className="font-georgia">{insight}</p>
                 </motion.div>
               ))}
             </div>
@@ -226,7 +242,7 @@ const QuizResults: React.FC<QuizResultsProps> = ({
           {/* Concern-Specific Recommendations */}
           {getConcernInsights().length > 0 && (
             <div className="mb-8">
-              <h2 className="text-xl font-medium mb-4">Recommendations</h2>
+              <h2 className="text-xl font-medium mb-4 font-georgia">Recommendations</h2>
               <div className="space-y-4">
                 {getConcernInsights().map((insight, i) => (
                   <motion.div 
@@ -234,16 +250,16 @@ const QuizResults: React.FC<QuizResultsProps> = ({
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4, delay: 1.2 + (i * 0.1) }}
-                    className="p-4 rounded-lg border border-border"
+                    className="p-4 rounded-md border border-border"
                   >
-                    <p>{insight}</p>
+                    <p className="font-georgia">{insight}</p>
                   </motion.div>
                 ))}
               </div>
             </div>
           )}
           
-          <div className="mt-8 p-4 bg-muted/50 rounded-lg border border-border">
+          <div className="mt-8 p-4 bg-muted/50 rounded-md border border-border">
             <p className="text-sm text-muted-foreground">
               <span className="font-medium text-foreground">Next Steps:</span> Consider connecting with a divorce coach or therapist who can provide personalized guidance based on your specific situation.
             </p>
@@ -257,10 +273,20 @@ const QuizResults: React.FC<QuizResultsProps> = ({
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5, duration: 0.5 }}
         >
-          <Button onClick={onRestart} variant="outline">
+          <Button 
+            onClick={onRestart} 
+            variant="outline" 
+            className="border-clean-green text-clean-brown hover:bg-clean-green/10"
+          >
             Take Assessment Again
           </Button>
         </motion.div>
+      </div>
+      
+      <div className="mt-10 pt-6 border-t text-center">
+        <p className="text-sm text-muted-foreground">
+          © {new Date().getFullYear()} The Clean Divorce. All rights reserved.
+        </p>
       </div>
     </motion.div>
   );

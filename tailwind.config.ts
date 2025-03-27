@@ -19,6 +19,9 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				georgia: ['Georgia', 'serif'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -62,7 +65,14 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				// Brand-specific colors
+				'clean-brown': '#442D1F', 
+				'clean-green': '#BFD34A',
+				'clean-coral': '#E26C65',
+				'clean-teal': '#87C5A9',
+				'clean-beige': '#F5F5F0',
+				'clean-accent': '#AD6237'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

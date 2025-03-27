@@ -33,3 +33,6 @@ export interface ProfileType {
   description: string;
   color: string;
 }
+
+// Export all types to make them accessible
+export type { Option, Question, Section, ProfileType };

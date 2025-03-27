@@ -1,5 +1,5 @@
 
-import { Question, Option } from './types/quizTypes';
+import { Question, Option, Section, ProfileType } from './types/quizTypes';
 import { sections } from './sections';
 import { profileTypes, getProfileType } from './profileTypes';
 import { layer1Questions } from './questions/layer1Questions';
@@ -41,5 +41,9 @@ export {
   layer4Questions,
   layer5Questions,
   layer6Questions,
-  finalQuestions
+  finalQuestions,
+  Option,  // Export the types
+  Question,
+  Section,
+  ProfileType
 };

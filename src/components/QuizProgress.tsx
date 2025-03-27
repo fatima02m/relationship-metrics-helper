@@ -1,7 +1,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { sections } from "@/data/quizData";
+import { sections } from "@/data/sections";
 
 interface QuizProgressProps {
   currentQuestion: number;
@@ -46,21 +46,21 @@ const QuizProgress: React.FC<QuizProgressProps> = ({
     <div className="mb-8">
       <div className="flex justify-between items-center mb-2">
         <div className="text-sm font-medium">
-          <span className="text-primary">{sectionTitle}</span>
+          <span className="text-clean-green font-georgia">{sectionTitle}</span>
           {getSectionSubtitle() && (
-            <span className="text-muted-foreground ml-2">
+            <span className="text-muted-foreground ml-2 font-georgia">
               • {getSectionSubtitle()}
             </span>
           )}
         </div>
-        <div className="text-sm text-muted-foreground">
+        <div className="text-sm text-muted-foreground font-georgia">
           Question {currentQuestion} of {totalQuestions}
         </div>
       </div>
       
       <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
         <motion.div
-          className="h-full bg-primary rounded-full"
+          className="h-full bg-clean-green rounded-full"
           initial={{ width: `${((currentQuestion - 1) / totalQuestions) * 100}%` }}
           animate={{ width: `${progress}%` }}
           transition={{ duration: 0.7, ease: "easeInOut" }}

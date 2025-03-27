@@ -1,7 +1,7 @@
 
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Question, Option } from "@/data/quizData";
+import { Question, Option } from "@/data/types/quizTypes";
 import QuizOption from "./QuizOption";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Slider } from "@/components/ui/slider";
@@ -80,7 +80,7 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({
       >
         <div className="mb-6">
           <motion.h2 
-            className="text-xl font-medium mb-2"
+            className="text-xl font-medium mb-2 font-georgia"
             initial={{ opacity: 0, y: -5 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.1 }}
@@ -91,7 +91,7 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.4, delay: 0.2 }}
-            className="h-[1px] w-16 bg-primary/30 mb-6"
+            className="h-[1px] w-16 bg-clean-green/50 mb-6"
           />
         </div>
 
@@ -103,17 +103,18 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.1 + (index * 0.1), ease: "easeOut" }}
-                className="flex items-center space-x-3 p-3 rounded-md border border-border hover:bg-accent/40 transition-colors cursor-pointer"
+                className="flex items-center space-x-3 p-3 rounded-md border border-border hover:bg-accent/10 transition-colors cursor-pointer"
                 onClick={() => handleMultipleSelect(option)}
               >
                 <Checkbox 
                   id={option.id} 
                   checked={isOptionSelected(option)}
                   onCheckedChange={() => handleMultipleSelect(option)}
+                  className="text-clean-green border-clean-green data-[state=checked]:bg-clean-green data-[state=checked]:text-clean-brown"
                 />
                 <label 
                   htmlFor={option.id} 
-                  className="text-sm font-medium leading-none cursor-pointer flex-1"
+                  className="text-sm font-medium leading-none cursor-pointer flex-1 font-georgia"
                 >
                   {option.text}
                 </label>
@@ -135,7 +136,7 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({
               {question.options.map((option) => (
                 <div key={option.id} className="text-center">
                   <div 
-                    className={`h-2 w-2 mx-auto mb-1 rounded-full ${Number(option.value) === getCurrentScaleValue()[0] ? 'bg-primary' : 'bg-muted'}`}
+                    className={`h-2 w-2 mx-auto mb-1 rounded-full ${Number(option.value) === getCurrentScaleValue()[0] ? 'bg-clean-green' : 'bg-muted'}`}
                   />
                   {option.text}
                 </div>

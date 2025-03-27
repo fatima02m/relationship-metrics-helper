@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Clean Divorce Quiz - Wix Integration Guide</title>
+    <style>
+        body {
+            font-family: Georgia, serif;
+            line-height: 1.6;
+            color: #442D1F;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            color: #442D1F;
+        }
+        pre {
+            background-color: #f5f5f0;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: monospace;
+        }
+        .note {
+            background-color: #BFD34A30;
+            border-left: 4px solid #BFD34A;
+            padding: 15px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>The Clean Divorce Quiz - Wix Integration Guide</h1>
+    
+    <div class="note">
+        <p>This guide explains how to embed the Divorce Journey Assessment quiz into your Wix website.</p>
+    </div>
+    
+    <h2>Method 1: iFrame Embed (Easiest)</h2>
+    
+    <ol>
+        <li>In your Wix Editor, add an HTML iFrame element to your page</li>
+        <li>Enter the following code in the HTML section:</li>
+    </ol>
+    
+    <pre><code>&lt;iframe 
+    src="https://your-deployed-quiz-url.com" 
+    width="100%" 
+    height="800px" 
+    style="border: none; max-width: 100%;"
+    title="Divorce Journey Assessment"
+&gt;&lt;/iframe&gt;</code></pre>
+
+    <p>Adjust the height as needed to fit your quiz length and avoid scrolling within the iframe.</p>
+    
+    <h2>Method 2: Wix Custom Element (More Control)</h2>
+    
+    <ol>
+        <li>In Wix, go to "Add" → "Embed" → "Custom Element"</li>
+        <li>Add the custom element to your page</li>
+        <li>Click "Enter Code" and paste the following:</li>
+    </ol>
+    
+    <pre><code>
+&lt;div id="divorce-quiz-container"&gt;&lt;/div&gt;
+&lt;script&gt;
+// Load the quiz into the container
+window.addEventListener('message', function(event) {
+    // Listen for messages from the quiz iframe
+    if (event.data && event.data.type === 'quizComplete') {
+        // Handle quiz completion data
+        console.log('Quiz completed with results:', event.data.payload);
+        
+        // You can use Wix's API to store results
+        // Example: storing primary type as a contact label
+        if (window.wixDevelopersAnalytics) {
+            window.wixDevelopersAnalytics.identify({
+                'divorceQuizResult': event.data.payload.primaryType
+            });
+        }
+    }
+});
+
+// Create an iframe to load the quiz
+const quizFrame = document.createElement('iframe');
+quizFrame.src = 'https://your-deployed-quiz-url.com';
+quizFrame.style.width = '100%';
+quizFrame.style.height = '800px';
+quizFrame.style.border = 'none';
+quizFrame.title = 'Divorce Journey Assessment';
+
+// Add the iframe to the container
+document.getElementById('divorce-quiz-container').appendChild(quizFrame);
+
+// Function to control the quiz from the parent page
+function startQuiz() {
+    quizFrame.contentWindow.postMessage({ command: 'startQuiz' }, '*');
+}
+
+function restartQuiz() {
+    quizFrame.contentWindow.postMessage({ command: 'restartQuiz' }, '*');
+}
+&lt;/script&gt;
+</code></pre>
+
+    <h2>Integrating Quiz Results with Wix CRM</h2>
+    
+    <p>When the quiz is completed, results are sent to the parent window. You can use these results to:</p>
+    
+    <ul>
+        <li>Create or update a contact in Wix CRM</li>
+        <li>Tag contacts based on their quiz results</li>
+        <li>Trigger Wix Automations based on results</li>
+        <li>Display personalized content based on results</li>
+    </ul>
+    
+    <div class="note">
+        <p><strong>Note:</strong> For the most advanced integrations (like adding quiz takers automatically to your CRM), 
+        you may need to use Wix Velo (previously Corvid) to write custom code or consult with a Wix developer.</p>
+    </div>
+    
+    <h2>Styling the Quiz for Your Wix Site</h2>
+    
+    <p>The quiz has been designed to match The Clean Divorce branding, using:</p>
+    
+    <ul>
+        <li>Georgia font for typography</li>
+        <li>Brand colors: #BFD34A (green), #442D1F (brown), #E26C65 (coral), #87C5A9 (teal)</li>
+        <li>Clean, minimal design that complements most Wix templates</li>
+    </ul>
+    
+    <p>If you need to make further styling adjustments, contact your developer to modify the quiz's CSS.</p>
+</body>
+</html>

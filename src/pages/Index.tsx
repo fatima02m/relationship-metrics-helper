@@ -5,11 +5,10 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { 
   questions, 
-  Question, 
-  Option, 
   getProfileType,
   getShortQuiz
 } from "@/data/quizData";
+import { Question, Option } from "@/data/types/quizTypes";
 import QuizIntro from "@/components/QuizIntro";
 import QuizQuestion from "@/components/QuizQuestion";
 import QuizProgress from "@/components/QuizProgress";
@@ -25,7 +24,7 @@ const Index = () => {
   // Use short quiz by default
   const [quizQuestions, setQuizQuestions] = useState<Question[]>([]);
   const [currentPath, setCurrentPath] = useState<string[]>([]);
-  const [useFullQuiz, setUseFullQuiz] = useState(true); // Changed to true to get the full quiz by default
+  const [useFullQuiz, setUseFullQuiz] = useState(true); // Full quiz by default
   
   // Answers state
   const [answers, setAnswers] = useState<Record<string, Option | Option[]>>({});
@@ -209,6 +208,22 @@ const Index = () => {
     // Complete the quiz
     setQuizCompleted(true);
     toast.success("Assessment completed!");
+
+    // For Wix integration - send the results to the parent window
+    try {
+      if (window.parent) {
+        window.parent.postMessage({
+          type: 'quizComplete',
+          payload: {
+            primaryType: primary,
+            path: currentPath,
+            answers: answers
+          }
+        }, '*');
+      }
+    } catch (error) {
+      console.error("Error sending quiz results to parent window:", error);
+    }
   };
 
   const goToNextQuestion = () => {
@@ -264,8 +279,29 @@ const Index = () => {
   // Get current section
   const currentSection = currentQuestion?.section || 1;
 
+  // Function for Wix to call from outside
+  // Export this function to the window for external access
+  useEffect(() => {
+    // @ts-ignore
+    window.startDivorceQuiz = startQuiz;
+    // @ts-ignore
+    window.restartDivorceQuiz = restartQuiz;
+    // @ts-ignore
+    window.toggleQuizLength = toggleQuizLength;
+    
+    return () => {
+      // Clean up when component unmounts
+      // @ts-ignore
+      delete window.startDivorceQuiz;
+      // @ts-ignore
+      delete window.restartDivorceQuiz;
+      // @ts-ignore
+      delete window.toggleQuizLength;
+    };
+  }, []);
+
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-background to-muted/30 py-12 px-4">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-clean-beige py-12 px-4 font-georgia">
       <div className="w-full max-w-3xl">
         {!quizStarted && !quizCompleted && (
           <>
@@ -273,7 +309,7 @@ const Index = () => {
             <div className="mt-4 text-center">
               <button 
                 onClick={toggleQuizLength} 
-                className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                className="text-sm text-muted-foreground hover:text-clean-green transition-colors"
               >
                 Switch to {useFullQuiz ? "Short" : "Comprehensive"} Assessment
               </button>
@@ -286,7 +322,7 @@ const Index = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className="bg-card text-card-foreground p-8 rounded-xl shadow-sm"
+            className="bg-card text-card-foreground p-8 rounded-md shadow-sm border"
           >
             <div className="mb-6">
               <QuizProgress 
@@ -310,7 +346,7 @@ const Index = () => {
                 size="sm"
                 onClick={goToPreviousQuestion}
                 disabled={currentQuestionIndex === 0}
-                className="flex items-center"
+                className="flex items-center border-clean-green/70 text-clean-brown"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Previous
@@ -319,7 +355,7 @@ const Index = () => {
               <Button
                 onClick={goToNextQuestion}
                 size="lg"
-                className="flex items-center"
+                className="flex items-center bg-clean-green text-clean-brown hover:bg-clean-green/90"
               >
                 {currentQuestionIndex < quizQuestions.length - 1 ? (
                   <>
@@ -343,6 +379,17 @@ const Index = () => {
           />
         )}
       </div>
+      
+      {/* Footer with The Clean Divorce branding */}
+      {!quizCompleted && (
+        <div className="mt-8 mb-4 flex items-center justify-center text-center">
+          <img 
+            src="/lovable-uploads/402e156e-94b1-4f7f-8a5a-0d9826c2be44.png" 
+            alt="The Clean Divorce" 
+            className="h-10"
+          />
+        </div>
+      )}
     </div>
   );
 };

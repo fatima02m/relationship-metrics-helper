@@ -2,13 +2,13 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { Option as OptionType } from "@/data/quizData";
+import { Option } from "@/data/types/quizTypes";
 import { CheckCircle } from "lucide-react";
 
 interface QuizOptionProps {
-  option: OptionType;
+  option: Option;
   isSelected: boolean;
-  onSelect: (option: OptionType) => void;
+  onSelect: (option: Option) => void;
   index: number;
 }
 
@@ -36,14 +36,14 @@ const QuizOption: React.FC<QuizOptionProps> = ({
         onClick={() => onSelect(option)}
       >
         <div className="flex-1">
-          <p className="text-md">{option.text}</p>
+          <p className="text-md font-georgia">{option.text}</p>
         </div>
         <div className={cn(
           "w-5 h-5 rounded-full border-2 border-muted transition-all duration-300 ml-4",
-          isSelected && "border-primary bg-primary/10"
+          isSelected && "border-clean-green bg-clean-green/10"
         )}>
           {isSelected && (
-            <CheckCircle className="w-4 h-4 text-primary" />
+            <CheckCircle className="w-4 h-4 text-clean-green" />
           )}
         </div>
       </div>

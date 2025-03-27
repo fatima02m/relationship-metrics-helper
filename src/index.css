@@ -5,35 +5,35 @@
 
 @layer base {
   :root {
-    --background: 210 20% 98%;
-    --foreground: 210 40% 10%;
+    --background: 60 30% 98%;
+    --foreground: 27 38% 19%;
 
     --card: 0 0% 100%;
-    --card-foreground: 210 40% 10%;
+    --card-foreground: 27 38% 19%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 210 40% 10%;
+    --popover-foreground: 27 38% 19%;
 
-    --primary: 200 70% 50%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 74 62% 56%;
+    --primary-foreground: 27 38% 19%;
 
-    --secondary: 210 20% 96%;
-    --secondary-foreground: 210 40% 10%;
+    --secondary: 60 15% 94%;
+    --secondary-foreground: 27 38% 19%;
 
-    --muted: 210 20% 96%;
-    --muted-foreground: 215 20% 45%;
+    --muted: 60 15% 94%;
+    --muted-foreground: 27 38% 30%;
 
-    --accent: 200 10% 95%;
-    --accent-foreground: 210 40% 10%;
+    --accent: 160 30% 65%;
+    --accent-foreground: 27 38% 19%;
 
     --destructive: 0 70% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 210 20% 90%;
-    --input: 210 20% 90%;
-    --ring: 210 30% 70%;
+    --border: 60 15% 85%;
+    --input: 60 15% 85%;
+    --ring: 74 62% 56%;
 
-    --radius: 0.75rem;
+    --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -46,42 +46,33 @@
   }
 
   .dark {
-    --background: 210 40% 4%;
-    --foreground: 210 20% 98%;
+    --background: 27 38% 10%;
+    --foreground: 60 30% 98%;
 
-    --card: 210 40% 6%;
-    --card-foreground: 210 20% 98%;
+    --card: 27 30% 12%;
+    --card-foreground: 60 30% 98%;
 
-    --popover: 210 40% 6%;
-    --popover-foreground: 210 20% 98%;
+    --popover: 27 30% 12%;
+    --popover-foreground: 60 30% 98%;
 
-    --primary: 200 70% 50%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 74 62% 50%;
+    --primary-foreground: 27 38% 19%;
 
-    --secondary: 210 40% 10%;
-    --secondary-foreground: 210 20% 98%;
+    --secondary: 27 30% 15%;
+    --secondary-foreground: 60 30% 98%;
 
-    --muted: 210 40% 10%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 27 30% 15%;
+    --muted-foreground: 27 10% 70%;
 
-    --accent: 210 40% 10%;
-    --accent-foreground: 210 20% 98%;
+    --accent: 160 30% 35%;
+    --accent-foreground: 60 30% 98%;
 
     --destructive: 0 60% 45%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 210 40% 15%;
-    --input: 210 40% 15%;
-    --ring: 210 40% 30%;
-
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --border: 27 30% 20%;
+    --input: 27 30% 20%;
+    --ring: 74 62% 40%;
   }
 }
 
@@ -91,13 +82,13 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-foreground font-georgia;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-medium tracking-tight;
+    @apply font-georgia font-medium tracking-tight;
   }
 
   /* Custom scrollbar */
@@ -131,7 +122,7 @@
   }
 
   .quiz-card {
-    @apply bg-card/80 backdrop-blur-md border rounded-xl shadow-sm transition-all duration-300 overflow-hidden;
+    @apply bg-card/90 backdrop-blur-md border rounded-md shadow-sm transition-all duration-300 overflow-hidden;
   }
 
   .quiz-header {
@@ -151,7 +142,7 @@
   }
 
   .progress-bar {
-    @apply h-full bg-primary transition-all duration-700 ease-in-out;
+    @apply h-full bg-clean-green transition-all duration-700 ease-in-out;
   }
 
   .option-grid {
@@ -159,15 +150,15 @@
   }
 
   .option-card {
-    @apply border rounded-lg p-4 cursor-pointer transition-all duration-300 hover:border-primary/50 hover:bg-accent;
+    @apply border rounded-md p-4 cursor-pointer transition-all duration-300 hover:border-clean-green/50 hover:bg-accent/10;
   }
 
   .option-card.selected {
-    @apply border-primary bg-primary/5 ring-1 ring-primary/30;
+    @apply border-clean-green bg-clean-green/5 ring-1 ring-clean-green/30;
   }
 
   .result-card {
-    @apply p-6 border rounded-xl mb-6;
+    @apply p-6 border rounded-md mb-6;
   }
 
   .result-meter {
