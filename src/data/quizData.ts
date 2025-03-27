@@ -41,9 +41,8 @@ export {
   layer4Questions,
   layer5Questions,
   layer6Questions,
-  finalQuestions,
-  Option,  // Export the types
-  Question,
-  Section,
-  ProfileType
+  finalQuestions
 };
+
+// Export types using 'export type' to fix TypeScript error
+export type { Option, Question, Section, ProfileType };

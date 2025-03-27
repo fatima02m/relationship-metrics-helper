@@ -35,4 +35,4 @@ export interface ProfileType {
 }
 
 // Export all types to make them accessible
-export type { Option, Question, Section, ProfileType };
+// Remove duplicate exports to fix TypeScript error
